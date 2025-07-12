@@ -11,8 +11,7 @@ export default defineConfig({
     react()
   ],
   server: {
-    host: true,
-    port: parseInt(process.env.PORT || '3000')
+    host: '0.0.0.0'
   },
   output: 'server',
 
