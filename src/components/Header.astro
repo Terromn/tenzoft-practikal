@@ -63,10 +63,10 @@
       mobileMenu?.classList.toggle('hidden');
     });
 
-    // Header visibility on scroll
+    // Header visibility on scroll - aparece más tarde
     ScrollTrigger.create({
       trigger: 'body',
-      start: 'top -50',
+      start: 'top -300', // Cambiado de -50 a -300 para que aparezca más tarde
       end: 'bottom bottom',
       onUpdate: (self: any) => {
         const header = document.querySelector('#header') as HTMLElement;
@@ -75,7 +75,7 @@
             // Show header when scrolled down
             header.classList.remove('-translate-y-full', 'opacity-0');
             header.classList.add('translate-y-0', 'opacity-100');
-            header.style.backgroundColor = 'rgba(0, 30, 33, 0.8)'; // dark-aqua with 80% opacity
+            header.style.backgroundColor = 'rgba(0, 30, 33, 0.9)'; // Más opaco para mejor visibilidad
           } else {
             // Hide header when at top
             header.classList.add('-translate-y-full', 'opacity-0');
