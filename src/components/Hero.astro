@@ -68,36 +68,7 @@
 </section>
 
 <style>
-  @keyframes float-1 {
-    0%, 100% { transform: translateY(0px) rotate(0deg); }
-    50% { transform: translateY(-20px) rotate(180deg); }
-  }
-  
-  @keyframes float-2 {
-    0%, 100% { transform: translateY(0px) rotate(0deg); }
-    50% { transform: translateY(-15px) rotate(-180deg); }
-  }
-  
-  @keyframes float-3 {
-    0%, 100% { transform: translateY(0px) rotate(0deg); }
-    50% { transform: translateY(-25px) rotate(90deg); }
-  }
-  
-  @keyframes pulse-slow {
-    0%, 100% { opacity: 0.5; }
-    50% { opacity: 0.8; }
-  }
-  
-  @keyframes bounce-slow {
-    0%, 100% { transform: translateY(0px); }
-    50% { transform: translateY(-10px); }
-  }
-  
-  .animate-float-1 { animation: float-1 6s ease-in-out infinite; }
-  .animate-float-2 { animation: float-2 8s ease-in-out infinite; }
-  .animate-float-3 { animation: float-3 7s ease-in-out infinite; }
-  .animate-pulse-slow { animation: pulse-slow 4s ease-in-out infinite; }
-  .animate-bounce-slow { animation: bounce-slow 3s ease-in-out infinite; }
+  /* Remove unused animations that might cause issues */
 </style>
 
 <script>
@@ -107,12 +78,6 @@
   gsap.registerPlugin(ScrollTrigger);
 
   document.addEventListener('DOMContentLoaded', () => {
-    // Hero content animation
-    gsap.fromTo('.hero-content', 
-      { opacity: 0, x: -50 },
-      { opacity: 1, x: 0, duration: 1, ease: 'power2.out' }
-    );
-
     // Title animation
     gsap.fromTo('.hero-title', 
       { opacity: 0, y: 30 },
@@ -124,17 +89,5 @@
       { opacity: 0, y: 20 },
       { opacity: 1, y: 0, duration: 0.6, delay: 0.5, ease: 'power2.out' }
     );
-
-
-
-    // Floating elements parallax for global elements
-    gsap.to('.floating-element', {
-      y: -30,
-      duration: 2,
-      ease: 'power1.inOut',
-      stagger: 0.2,
-      repeat: -1,
-      yoyo: true
-    });
   });
 </script> 
