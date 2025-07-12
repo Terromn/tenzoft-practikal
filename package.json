@@ -6,6 +6,8 @@
     "dev": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
+    "start": "astro preview",
+
     "astro": "astro",
     "test": "vitest",
     "test:coverage": "vitest --coverage"
