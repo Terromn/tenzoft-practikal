@@ -1,0 +1,566 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+import Hero from '../components/Hero.astro';
+import About from '../components/About.astro';
+import Services from '../components/Services.astro';
+import Contact from '../components/Contact.astro';
+import Footer from '../components/Footer.astro';
+import Background from '../components/Background.astro';
+---
+
+<Layout 
+  title="Practikal"
+  description="Más de 20 años transformando empresas con soluciones tecnológicas innovadoras. Consultoría especializada, equipos multidisciplinarios y soporte integral. Contacta hoy para una consulta gratuita."
+>
+  <Background />
+  
+  <!-- Indicador de progreso de scroll -->
+  <div class="scroll-progress"></div>
+  
+  <Header />
+  <main>
+    <Hero />
+    <About />
+    <Services />
+    <Contact />
+  </main>
+  <Footer />
+</Layout>
+
+<!-- GSAP CDN -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    // Verificar que GSAP esté disponible
+    if (typeof gsap !== 'undefined') {
+      gsap.registerPlugin(ScrollTrigger);
+
+      // ==================== BACKGROUND ANIMATIONS ====================
+      
+      // Animación de partículas de fondo
+      gsap.to('.floating-particle', {
+        y: -30,
+        x: 20,
+        rotation: 360,
+        duration: 4,
+        ease: 'none',
+        repeat: -1,
+        yoyo: true,
+        stagger: 0.5
+      });
+
+      // Animación de elementos decorativos
+      gsap.to('.decoration-element', {
+        scale: 1.1,
+        rotation: 180,
+        duration: 8,
+        ease: 'none',
+        repeat: -1,
+        yoyo: true,
+        stagger: 1
+      });
+
+      // ==================== HEADER ANIMATIONS ====================
+      
+      // Animación del header al cargar
+      gsap.fromTo('header', 
+        { opacity: 0, y: -50 },
+        { 
+          opacity: 1, 
+          y: 0, 
+          duration: 0.8, 
+          ease: 'power2.out',
+          delay: 0.2
+        }
+      );
+
+      // Animación del logo
+      gsap.fromTo('header .logo', 
+        { opacity: 0, scale: 0.8 },
+        { 
+          opacity: 1, 
+          scale: 1, 
+          duration: 0.6, 
+          ease: 'back.out(1.7)',
+          delay: 0.4
+        }
+      );
+
+      // Animación del menú de navegación
+      gsap.fromTo('nav a', 
+        { opacity: 0, y: -20 },
+        { 
+          opacity: 1, 
+          y: 0, 
+          duration: 0.5, 
+          stagger: 0.1,
+          ease: 'power2.out',
+          delay: 0.6
+        }
+      );
+
+      // ==================== HERO SECTION ANIMATIONS ====================
+      
+      // Animación del contenido principal del hero
+      gsap.fromTo('#inicio', 
+        { opacity: 0 },
+        { 
+          opacity: 1, 
+          duration: 1, 
+          ease: 'power2.out',
+          delay: 0.8
+        }
+      );
+
+      // Animación del logo principal
+      gsap.fromTo('#inicio img', 
+        { opacity: 0, scale: 0.9, y: 30 },
+        { 
+          opacity: 1, 
+          scale: 1, 
+          y: 0, 
+          duration: 0.8, 
+          ease: 'power2.out',
+          delay: 1
+        }
+      );
+
+      // Animación del título principal
+      gsap.fromTo('#inicio h1', 
+        { opacity: 0, y: 40 },
+        { 
+          opacity: 1, 
+          y: 0, 
+          duration: 0.8, 
+          ease: 'power2.out',
+          delay: 1.2
+        }
+      );
+
+      // Animación del subtítulo
+      gsap.fromTo('#inicio p', 
+        { opacity: 0, y: 30 },
+        { 
+          opacity: 1, 
+          y: 0, 
+          duration: 0.6, 
+          ease: 'power2.out',
+          delay: 1.4
+        }
+      );
+
+      // Animación de los botones CTA
+      gsap.fromTo('#inicio a', 
+        { opacity: 0, y: 20, scale: 0.95 },
+        { 
+          opacity: 1, 
+          y: 0, 
+          scale: 1, 
+          duration: 0.5, 
+          stagger: 0.2,
+          ease: 'power2.out',
+          delay: 1.6
+        }
+      );
+
+      // Animación de las estadísticas
+      gsap.fromTo('#inicio .grid > div', 
+        { opacity: 0, y: 20, scale: 0.9 },
+        { 
+          opacity: 1, 
+          y: 0, 
+          scale: 1, 
+          duration: 0.6, 
+          stagger: 0.1,
+          ease: 'power2.out',
+          delay: 1.8
+        }
+      );
+
+      // ==================== ABOUT SECTION ANIMATIONS ====================
+      
+      // Animación del título de la sección
+      gsap.fromTo('#nosotros h2', 
+        { opacity: 0, y: 50 },
+        { 
+          opacity: 1, 
+          y: 0, 
+          duration: 0.8, 
+          ease: 'power2.out',
+          scrollTrigger: {
+            trigger: '#nosotros',
+            start: 'top 80%',
+            end: 'bottom 20%',
+            toggleActions: 'play none none reverse'
+          }
+        }
+      );
+
+      // Animación del subtítulo de about
+      gsap.fromTo('#nosotros .about-subtitle', 
+        { opacity: 0, y: 30 },
+        { 
+          opacity: 1, 
+          y: 0, 
+          duration: 0.6, 
+          ease: 'power2.out',
+          delay: 0.2,
+          scrollTrigger: {
+            trigger: '#nosotros',
+            start: 'top 70%',
+            end: 'bottom 30%',
+            toggleActions: 'play none none reverse'
+          }
+        }
+      );
+
+      // Animación de los puntos principales de about
+      gsap.fromTo('#nosotros .about-point', 
+        { opacity: 0, y: 40, scale: 0.95 },
+        { 
+          opacity: 1, 
+          y: 0, 
+          scale: 1, 
+          duration: 0.7, 
+          stagger: 0.15,
+          ease: 'power2.out',
+          scrollTrigger: {
+            trigger: '#nosotros .about-content',
+            start: 'top 60%',
+            end: 'bottom 40%',
+            toggleActions: 'play none none reverse'
+          }
+        }
+      );
+
+      // Animación de las tarjetas de valores
+      gsap.fromTo('#nosotros .value-card', 
+        { opacity: 0, y: 50, scale: 0.9 },
+        { 
+          opacity: 1, 
+          y: 0, 
+          scale: 1, 
+          duration: 0.8, 
+          stagger: 0.2,
+          ease: 'power2.out',
+          scrollTrigger: {
+            trigger: '#nosotros .values-section',
+            start: 'top 70%',
+            end: 'bottom 30%',
+            toggleActions: 'play none none reverse'
+          }
+        }
+      );
+
+      // ==================== SERVICES SECTION ANIMATIONS ====================
+      
+      // Animación del título de servicios
+      gsap.fromTo('#servicios h2', 
+        { opacity: 0, y: 50 },
+        { 
+          opacity: 1, 
+          y: 0, 
+          duration: 0.8, 
+          ease: 'power2.out',
+          scrollTrigger: {
+            trigger: '#servicios',
+            start: 'top 80%',
+            end: 'bottom 20%',
+            toggleActions: 'play none none reverse'
+          }
+        }
+      );
+
+      // Animación del subtítulo de servicios
+      gsap.fromTo('#servicios .services-subtitle', 
+        { opacity: 0, y: 30 },
+        { 
+          opacity: 1, 
+          y: 0, 
+          duration: 0.6, 
+          ease: 'power2.out',
+          delay: 0.2,
+          scrollTrigger: {
+            trigger: '#servicios',
+            start: 'top 70%',
+            end: 'bottom 30%',
+            toggleActions: 'play none none reverse'
+          }
+        }
+      );
+
+      // Animación de las tarjetas de servicios
+      gsap.fromTo('#servicios .service-card', 
+        { opacity: 0, y: 60, scale: 0.9 },
+        { 
+          opacity: 1, 
+          y: 0, 
+          scale: 1, 
+          duration: 0.8, 
+          stagger: 0.2,
+          ease: 'power2.out',
+          scrollTrigger: {
+            trigger: '#servicios .service-card',
+            start: 'top 70%',
+            end: 'bottom 30%',
+            toggleActions: 'play none none reverse'
+          }
+        }
+      );
+
+      // Animación del proceso de trabajo
+      gsap.fromTo('#servicios .process-step', 
+        { opacity: 0, y: 40, scale: 0.95 },
+        { 
+          opacity: 1, 
+          y: 0, 
+          scale: 1, 
+          duration: 0.6, 
+          stagger: 0.15,
+          ease: 'power2.out',
+          scrollTrigger: {
+            trigger: '#servicios .process-section',
+            start: 'top 70%',
+            end: 'bottom 30%',
+            toggleActions: 'play none none reverse'
+          }
+        }
+      );
+
+      // ==================== CONTACT SECTION ANIMATIONS ====================
+      
+      // Animación del título de contacto
+      gsap.fromTo('#contacto h2', 
+        { opacity: 0, y: 50 },
+        { 
+          opacity: 1, 
+          y: 0, 
+          duration: 0.8, 
+          ease: 'power2.out',
+          scrollTrigger: {
+            trigger: '#contacto',
+            start: 'top 80%',
+            end: 'bottom 20%',
+            toggleActions: 'play none none reverse'
+          }
+        }
+      );
+
+      // Animación del formulario de contacto
+      gsap.fromTo('#contacto form', 
+        { opacity: 0, x: -50, scale: 0.95 },
+        { 
+          opacity: 1, 
+          x: 0, 
+          scale: 1, 
+          duration: 0.8, 
+          ease: 'power2.out',
+          scrollTrigger: {
+            trigger: '#contacto',
+            start: 'top 60%',
+            end: 'bottom 40%',
+            toggleActions: 'play none none reverse'
+          }
+        }
+      );
+
+      // Animación de los campos del formulario
+      gsap.fromTo('#contacto input, #contacto textarea', 
+        { opacity: 0, y: 30 },
+        { 
+          opacity: 1, 
+          y: 0, 
+          duration: 0.5, 
+          stagger: 0.1,
+          ease: 'power2.out',
+          scrollTrigger: {
+            trigger: '#contacto form',
+            start: 'top 70%',
+            end: 'bottom 30%',
+            toggleActions: 'play none none reverse'
+          }
+        }
+      );
+
+      // Animación de la información de contacto
+      gsap.fromTo('#contacto .contact-info', 
+        { opacity: 0, x: 50, scale: 0.95 },
+        { 
+          opacity: 1, 
+          x: 0, 
+          scale: 1, 
+          duration: 0.8, 
+          ease: 'power2.out',
+          scrollTrigger: {
+            trigger: '#contacto',
+            start: 'top 60%',
+            end: 'bottom 40%',
+            toggleActions: 'play none none reverse'
+          }
+        }
+      );
+
+      // ==================== FOOTER ANIMATIONS ====================
+      
+      // Animación del footer
+      gsap.fromTo('footer', 
+        { opacity: 0, y: 50 },
+        { 
+          opacity: 1, 
+          y: 0, 
+          duration: 0.8, 
+          ease: 'power2.out',
+          scrollTrigger: {
+            trigger: 'footer',
+            start: 'top 90%',
+            end: 'bottom 10%',
+            toggleActions: 'play none none reverse'
+          }
+        }
+      );
+
+      // Animación del contenido del footer
+      gsap.fromTo('footer > *', 
+        { opacity: 0, y: 30 },
+        { 
+          opacity: 1, 
+          y: 0, 
+          duration: 0.6, 
+          stagger: 0.1,
+          ease: 'power2.out',
+          scrollTrigger: {
+            trigger: 'footer',
+            start: 'top 80%',
+            end: 'bottom 20%',
+            toggleActions: 'play none none reverse'
+          }
+        }
+      );
+
+      // ==================== SCROLL ANIMATIONS ====================
+      
+      // Parallax suave para elementos principales
+      gsap.to('#inicio', {
+        y: -100,
+        ease: 'none',
+        scrollTrigger: {
+          trigger: '#inicio',
+          start: 'top top',
+          end: 'bottom top',
+          scrub: 1
+        }
+      });
+
+      // Animación de reveal para todas las secciones
+      document.querySelectorAll('section').forEach((section) => {
+        gsap.fromTo(section, 
+          { opacity: 0.8, y: 50 },
+          { 
+            opacity: 1, 
+            y: 0, 
+            duration: 1, 
+            ease: 'power2.out',
+            scrollTrigger: {
+              trigger: section,
+              start: 'top 85%',
+              end: 'bottom 15%',
+              toggleActions: 'play none none reverse'
+            }
+          }
+        );
+      });
+
+      // ==================== INTERACTIVE HOVER EFFECTS ====================
+      
+      // Efecto hover mejorado para botones
+      document.querySelectorAll('a[href], button').forEach(btn => {
+        btn.addEventListener('mouseenter', () => {
+          gsap.to(btn, { scale: 1.05, duration: 0.3, ease: 'power2.out' });
+        });
+        
+        btn.addEventListener('mouseleave', () => {
+          gsap.to(btn, { scale: 1, duration: 0.3, ease: 'power2.out' });
+        });
+      });
+
+      // Efecto hover para tarjetas
+      document.querySelectorAll('.service-card, .value-card, .about-point').forEach(card => {
+        card.addEventListener('mouseenter', () => {
+          gsap.to(card, { 
+            y: -8, 
+            scale: 1.02, 
+            duration: 0.3, 
+            ease: 'power2.out',
+            boxShadow: '0 20px 40px rgba(0,0,0,0.1)'
+          });
+        });
+        
+        card.addEventListener('mouseleave', () => {
+          gsap.to(card, { 
+            y: 0, 
+            scale: 1, 
+            duration: 0.3, 
+            ease: 'power2.out',
+            boxShadow: '0 4px 20px rgba(0,0,0,0.05)'
+          });
+        });
+      });
+
+      // ==================== SCROLL PROGRESS INDICATOR ====================
+      
+      // Indicador de progreso de scroll
+      gsap.to('.scroll-progress', {
+        scaleX: 1,
+        ease: 'none',
+        scrollTrigger: {
+          trigger: 'body',
+          start: 'top top',
+          end: 'bottom bottom',
+          scrub: 1
+        }
+      });
+
+      console.log('✨ GSAP animations loaded successfully!');
+    } else {
+      console.warn('GSAP not loaded');
+    }
+  });
+</script>
+
+<style>
+  main {
+    overflow-x: hidden;
+  }
+  
+  /* Indicador de progreso de scroll */
+  .scroll-progress {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 3px;
+    background: linear-gradient(90deg, #1BB4AD, #FF8539);
+    transform-origin: left;
+    transform: scaleX(0);
+    z-index: 1000;
+  }
+  
+  /* Smooth scrolling mejorado */
+  html {
+    scroll-behavior: smooth;
+  }
+  
+  /* Mejoras visuales para las animaciones */
+  section {
+    position: relative;
+    z-index: 1;
+  }
+  
+  /* Optimización para animaciones */
+  * {
+    will-change: transform;
+  }
+</style>

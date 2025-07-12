@@ -1,0 +1,127 @@
+---
+// Header component - Dark mode only
+---
+
+<header class="fixed top-0 left-0 right-0 z-50 bg-dark-aqua/80 backdrop-blur-sm border-b border-gray-700 transition-all duration-300 transform -translate-y-full opacity-0" id="header">
+  <nav class="container mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="flex items-center justify-between h-20">
+      <!-- Logo -->
+      <div class="flex-shrink-0" id="logo">
+        <a href="/" class="flex items-center space-x-2">
+          <!-- Isotype: Icon only for all views -->
+          <img src="/assets/isotype.png" alt="Practikal" class="h-8 w-8">
+        </a>
+      </div>
+
+      <!-- Desktop Navigation -->
+      <div class="hidden md:block">
+        <div class="ml-10 flex items-baseline space-x-8">
+          <a href="#inicio" class="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200">Inicio</a>
+          <a href="#nosotros" class="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200">Nosotros</a>
+          <a href="#servicios" class="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200">Servicios</a>
+          <a href="#contacto" class="group relative overflow-hidden bg-primary-600 hover:bg-primary-700 text-white px-4 py-2 rounded-lg text-sm font-medium transition-all duration-300 transform hover:scale-105 hover:shadow-lg hover:shadow-primary-500/50 active:bg-primary-800">
+            <span class="relative z-10">Contacto</span>
+            <div class="absolute inset-0 bg-primary-700 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+          </a>
+        </div>
+      </div>
+
+      <!-- Mobile menu button -->
+      <div class="md:hidden">
+        <button type="button" class="text-gray-300 hover:text-white focus:outline-none focus:text-white" id="mobile-menu-button">
+          <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+          </svg>
+        </button>
+      </div>
+    </div>
+
+    <!-- Mobile menu -->
+    <div class="md:hidden hidden" id="mobile-menu">
+      <div class="px-2 pt-2 pb-3 space-y-1 bg-gray-800 rounded-lg mt-2">
+        <a href="#inicio" class="text-gray-300 hover:text-white block px-3 py-2 rounded-md text-base font-medium">Inicio</a>
+        <a href="#nosotros" class="text-gray-300 hover:text-white block px-3 py-2 rounded-md text-base font-medium">Nosotros</a>
+        <a href="#servicios" class="text-gray-300 hover:text-white block px-3 py-2 rounded-md text-base font-medium">Servicios</a>
+        <a href="#contacto" class="bg-primary-600 hover:bg-primary-700 text-white block px-3 py-2 rounded-md text-base font-medium">Contacto</a>
+      </div>
+    </div>
+  </nav>
+</header>
+
+<script>
+  import { gsap } from 'gsap';
+  import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+  gsap.registerPlugin(ScrollTrigger);
+
+  document.addEventListener('DOMContentLoaded', () => {
+    // Mobile menu toggle
+    const mobileMenuButton = document.getElementById('mobile-menu-button');
+    const mobileMenu = document.getElementById('mobile-menu');
+
+    mobileMenuButton?.addEventListener('click', () => {
+      mobileMenu?.classList.toggle('hidden');
+    });
+
+    // Header visibility on scroll
+    ScrollTrigger.create({
+      trigger: 'body',
+      start: 'top -50',
+      end: 'bottom bottom',
+      onUpdate: (self: any) => {
+        const header = document.querySelector('#header') as HTMLElement;
+        if (header) {
+          if (self.progress > 0) {
+            // Show header when scrolled down
+            header.classList.remove('-translate-y-full', 'opacity-0');
+            header.classList.add('translate-y-0', 'opacity-100');
+            header.style.backgroundColor = 'rgba(0, 30, 33, 0.8)'; // dark-aqua with 80% opacity
+          } else {
+            // Hide header when at top
+            header.classList.add('-translate-y-full', 'opacity-0');
+            header.classList.remove('translate-y-0', 'opacity-100');
+          }
+        }
+      }
+    });
+
+    // Smooth scrolling for anchor links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', (e) => {
+        e.preventDefault();
+        const target = document.querySelector((e.currentTarget as HTMLAnchorElement).getAttribute('href')!);
+        if (target) {
+          target.scrollIntoView({
+            behavior: 'smooth',
+            block: 'start'
+          });
+        }
+      });
+    });
+  });
+</script>
+
+<style>
+  .mobile-menu {
+    transition: all 0.3s ease-in-out;
+  }
+  
+  .nav-link {
+    position: relative;
+  }
+  
+  .nav-link::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 2px;
+    bottom: -4px;
+    left: 0;
+    background-color: #1BB4AD;
+    transition: width 0.3s ease;
+  }
+  
+  .nav-link:hover::after {
+    width: 100%;
+  }
+</style> 
