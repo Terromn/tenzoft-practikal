@@ -1,7 +1,10 @@
 {
-  "name": "practikal-landing",
+  "name": "practikal",
   "type": "module",
-  "version": "1.0.0",
+  "version": "0.0.1",
+  "engines": {
+    "node": ">=18.20.8"
+  },
   "scripts": {
     "dev": "astro dev",
     "build": "astro build",
