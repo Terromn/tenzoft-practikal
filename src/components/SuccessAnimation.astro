@@ -1,0 +1,196 @@
+---
+// Success Animation Overlay Component
+---
+
+<div id="success-overlay" class="fixed inset-0 z-[9999] bg-dark-aqua/95 backdrop-blur-md flex items-center justify-center opacity-0 pointer-events-none">
+  <div class="success-container text-center">
+    <!-- Success Icon -->
+    <div class="success-icon-wrapper mb-8">
+      <div class="success-icon w-24 h-24 mx-auto rounded-full bg-gradient-to-br from-light-aqua to-aqua flex items-center justify-center">
+        <svg class="success-check w-12 h-12 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path>
+        </svg>
+      </div>
+      
+      <!-- Animated circles -->
+      <div class="circle-1 absolute w-24 h-24 rounded-full border-4 border-light-aqua/30"></div>
+      <div class="circle-2 absolute w-32 h-32 rounded-full border-2 border-orange/20"></div>
+      <div class="circle-3 absolute w-40 h-40 rounded-full border border-light-aqua/10"></div>
+    </div>
+
+    <!-- Success Text -->
+    <div class="success-text">
+      <h2 class="text-4xl md:text-5xl font-display font-bold text-white mb-4">
+        ¡Enviado!
+      </h2>
+      <p class="text-xl text-gray-300 mb-6">
+        Tu mensaje ha sido enviado correctamente
+      </p>
+      <div class="loading-dots flex justify-center space-x-2">
+        <div class="dot w-3 h-3 bg-light-aqua rounded-full"></div>
+        <div class="dot w-3 h-3 bg-light-aqua rounded-full"></div>
+        <div class="dot w-3 h-3 bg-light-aqua rounded-full"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  // Success Animation Function
+  function showSuccessAnimation(redirectUrl = '/#inicio') {
+    if (typeof gsap !== 'undefined') {
+      const overlay = document.getElementById('success-overlay');
+      const container = document.querySelector('.success-container');
+      const icon = document.querySelector('.success-icon');
+      const check = document.querySelector('.success-check');
+      const circles = document.querySelectorAll('.circle-1, .circle-2, .circle-3');
+      const text = document.querySelector('.success-text');
+      const dots = document.querySelectorAll('.dot');
+
+      // Reset states
+      gsap.set([container, icon, check, text], { opacity: 0, scale: 0.8 });
+      gsap.set(circles, { scale: 0, opacity: 0 });
+      gsap.set(dots, { scale: 0 });
+
+      // Show overlay
+      gsap.set(overlay, { pointerEvents: 'auto' });
+      gsap.to(overlay, { opacity: 1, duration: 0.3 });
+
+      // Timeline for success animation
+      const tl = gsap.timeline();
+
+      // 1. Animate container in
+      tl.to(container, { 
+        opacity: 1, 
+        scale: 1, 
+        duration: 0.5, 
+        ease: 'back.out(1.7)' 
+      });
+
+      // 2. Animate icon
+      tl.to(icon, { 
+        opacity: 1, 
+        scale: 1, 
+        duration: 0.4, 
+        ease: 'back.out(1.7)' 
+      }, '-=0.2');
+
+      // 3. Animate circles expanding
+      tl.to(circles, { 
+        scale: 1, 
+        opacity: 1, 
+        duration: 0.8, 
+        stagger: 0.1, 
+        ease: 'power2.out' 
+      }, '-=0.3');
+
+      // 4. Draw check mark
+      tl.fromTo(check, 
+        { 
+          strokeDasharray: '100', 
+          strokeDashoffset: '100',
+          opacity: 0 
+        },
+        { 
+          strokeDashoffset: '0',
+          opacity: 1,
+          duration: 0.6, 
+          ease: 'power2.out' 
+        }, '-=0.4');
+
+      // 5. Animate text in
+      tl.to(text, { 
+        opacity: 1, 
+        scale: 1, 
+        duration: 0.5, 
+        ease: 'power2.out' 
+      }, '-=0.2');
+
+      // 6. Animate loading dots
+      tl.to(dots, { 
+        scale: 1, 
+        duration: 0.3, 
+        stagger: 0.1, 
+        ease: 'back.out(1.7)' 
+      });
+
+      // 7. Pulse animation for dots
+      tl.to(dots, { 
+        scale: 1.2, 
+        duration: 0.4, 
+        stagger: 0.1, 
+        repeat: 2, 
+        yoyo: true, 
+        ease: 'power2.inOut' 
+      });
+
+      // 8. Scale up circles for exit
+      tl.to(circles, { 
+        scale: 2, 
+        opacity: 0, 
+        duration: 0.6, 
+        stagger: 0.1, 
+        ease: 'power2.out' 
+      });
+
+      // 9. Fade out and redirect
+      tl.to([container, overlay], { 
+        opacity: 0, 
+        duration: 0.5, 
+        ease: 'power2.out',
+        onComplete: () => {
+          gsap.set(overlay, { pointerEvents: 'none' });
+          // Redirect to home
+          window.location.href = redirectUrl;
+        }
+      });
+
+    } else {
+      // Fallback if GSAP not loaded
+      alert('¡Mensaje enviado correctamente!');
+      window.location.href = redirectUrl;
+    }
+  }
+
+  // Make function globally available
+  (window as any).showSuccessAnimation = showSuccessAnimation;
+
+  // Example usage:
+  // window.showSuccessAnimation(); // redirects to /#inicio
+  // window.showSuccessAnimation('/thank-you'); // custom redirect
+</script>
+
+<style>
+  .success-icon-wrapper {
+    position: relative;
+    display: inline-block;
+  }
+
+  .circle-1, .circle-2, .circle-3 {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+
+  .success-check {
+    filter: drop-shadow(0 0 10px rgba(27, 180, 173, 0.3));
+  }
+
+  .dot {
+    animation: pulse 1.5s infinite;
+  }
+
+  .dot:nth-child(2) {
+    animation-delay: 0.2s;
+  }
+
+  .dot:nth-child(3) {
+    animation-delay: 0.4s;
+  }
+
+  @keyframes pulse {
+    0%, 100% { transform: scale(1); opacity: 1; }
+    50% { transform: scale(1.2); opacity: 0.7; }
+  }
+</style> 

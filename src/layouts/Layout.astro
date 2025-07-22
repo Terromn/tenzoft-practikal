@@ -1,5 +1,6 @@
 ---
 import '../styles/global.css';
+import SuccessAnimation from '../components/SuccessAnimation.astro';
 
 export interface Props {
   title: string;
@@ -82,6 +83,29 @@ const { title, description = "Practikal - Soluciones empresariales y tecnológic
   </head>
   <body class="text-white antialiased relative overflow-x-hidden min-h-screen">
     <slot />
+    
+    <!-- Success Animation Overlay -->
+    <SuccessAnimation />
+    
+    <!-- Auto-trigger success animation from URL parameter -->
+    <script>
+      document.addEventListener("DOMContentLoaded", function() {
+        // Check if success parameter is in URL
+        const urlParams = new URLSearchParams(window.location.search);
+        if (urlParams.get("success") === "true") {
+          // Wait for GSAP and components to load
+          setTimeout(() => {
+            if (typeof window !== "undefined" && (window as any).showSuccessAnimation) {
+              // Clear the URL parameter to avoid retriggering
+              window.history.replaceState({}, document.title, window.location.pathname);
+              // Show animation and redirect to home section
+              (window as any).showSuccessAnimation("/#inicio");
+            }
+          }, 1000);
+        }
+      });
+    </script>
+    
     
     <!-- GSAP -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js" integrity="sha512-16esztaSRplJROstbIIdwX3N97V1+pZvV33ABoG1H2OyTttBxEGkTsoIVsiP1iaTtM8b3+hu2kB6pQ4Clr5yug==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
